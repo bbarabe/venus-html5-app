@@ -7,6 +7,8 @@ import { isError } from "app/utils/util"
 import { AppViews, useAppViewsStore } from "./modules/AppViews"
 import BoxView from "./components/views/BoxView"
 import RootView from "./components/views/RootView"
+import GreenlineHomeView from "./components/views/GreenlineHomeView"
+import EDriveDetailView from "./components/views/EDriveDetailView"
 import RemoteConsoleView from "./components/views/RemoteConsoleView"
 import Connecting from "./components/ui/Connecting"
 import DiagnosticsView from "./components/views/DiagnosticsView"
@@ -44,6 +46,10 @@ export const Marine2 = observer((props: AppProps) => {
 
     // Other views
     switch (currentView) {
+      case AppViews.GREENLINE_HOME:
+        return <GreenlineHomeView />
+      case AppViews.EDRIVE:
+        return <EDriveDetailView />
       case AppViews.REMOTE_CONSOLE:
         return <RemoteConsoleView host={host} />
       case AppViews.DIAGNOSTICS:

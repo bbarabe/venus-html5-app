@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react"
 import { translate } from "react-i18nify"
 import Button from "../Button"
-import { AppViews, useAppViewsStore } from "../../../modules/AppViews"
+import { AppViews, HOME_VIEW, useAppViewsStore } from "../../../modules/AppViews"
 import { useMqtt } from "@victronenergy/mfd-modules"
 import Connecting from "../Connecting"
 import { observer } from "mobx-react-lite"
@@ -26,7 +26,7 @@ const MqttUnavailable = ({ host }: Props) => {
     if (!error) {
       // eslint-disable-next-line react-hooks/set-state-in-effect -- reacting to external MQTT state
       setIsConnecting(false)
-      appViewsStore.setView(AppViews.ROOT)
+      appViewsStore.setView(HOME_VIEW)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [error, isConnected])

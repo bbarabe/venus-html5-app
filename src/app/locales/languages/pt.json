@@ -170,6 +170,8 @@
         "title": "Seu painel está vazio"
     },
     "pages": {
+        "eDrive": "E-Drive",
+        "greenlineHome": "Greenline 6GK",
         "switchingPane": "Painel de comutação"
     },
     "remoteLogin": {

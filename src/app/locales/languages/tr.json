@@ -209,6 +209,8 @@
     },
     "pages": {
         "diagnostics": "Diagnostics",
+        "eDrive": "E-Drive",
+        "greenlineHome": "Greenline 6GK",
         "remoteConsole": "Uzak Konsol",
         "switchingPane": "Anahtarlama Paneli",
         "systemOverview": "Sistem görünümü"

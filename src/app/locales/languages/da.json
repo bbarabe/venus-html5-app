@@ -209,6 +209,8 @@
     },
     "pages": {
         "diagnostics": "Diagnosticering",
+        "eDrive": "E-Drive",
+        "greenlineHome": "Greenline 6GK",
         "remoteConsole": "Fjernkonsol",
         "switchingPane": "Omskifterpanel",
         "systemOverview": "Systemoversigt"

@@ -39,9 +39,11 @@ import EnergyConnectedGenset from "../EnergyConnectedGenset"
 interface Props {
   componentMode?: ComponentMode
   pageSelectorPropsSetter?: (arg0: PageSelectorProps) => void
+  /** Extra status shown in the box header, e.g. a shore-input pill. */
+  headerActions?: React.JSX.Element
 }
 
-const EnergyOverview: FC<Props> = ({ componentMode = "full", pageSelectorPropsSetter }) => {
+const EnergyOverview: FC<Props> = ({ componentMode = "full", pageSelectorPropsSetter, headerActions }) => {
   const { inputId: shoreInputId } = useShorePowerInput()
   const { phases } = useAcLoads()
   const dcLoads = useDcLoads()
@@ -76,6 +78,7 @@ const EnergyOverview: FC<Props> = ({ componentMode = "full", pageSelectorPropsSe
         icon={<EnergyIcon className={classNames("text-content-victronGray", activeStyles?.icon)} />}
         linkedView={AppViews.BOX_ENERGY_OVERVIEW}
         getBoxSizeCallback={setCompactBoxSize}
+        headerActions={headerActions}
         withPagination={true}
         paginationOrientation={"vertical"}
       >

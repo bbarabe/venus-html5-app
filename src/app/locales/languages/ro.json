@@ -209,6 +209,8 @@
     },
     "pages": {
         "diagnostics": "Diagnostic",
+        "eDrive": "E-Drive",
+        "greenlineHome": "Greenline 6GK",
         "remoteConsole": "Consola la distanta",
         "switchingPane": "Panou de comutare",
         "systemOverview": "Prezentare generală sistem"

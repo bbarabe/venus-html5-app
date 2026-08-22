@@ -209,6 +209,8 @@
     },
     "pages": {
         "diagnostics": "Diagnostika",
+        "eDrive": "E-Drive",
+        "greenlineHome": "Greenline 6GK",
         "remoteConsole": "Vzdálené ovládání",
         "switchingPane": "Panel přepínání",
         "systemOverview": "Přehled systému"

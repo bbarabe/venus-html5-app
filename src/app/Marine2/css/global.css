@@ -269,6 +269,15 @@ p {
     url("../../../css/fonts/MuseoSans/MuseoSans-700Italic.otf");
 }
 
+/* Greenline OPBOX display face, vendored so the drive gauges render the same
+   offline on the MFD as they do on the boat's own HMI. */
+@font-face {
+  font-family: "Russo One";
+  src: url("../../../css/fonts/RussoOne/RussoOne-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
 @font-face {
   font-family: "Noto Sans SC";
   src: url("../../../css/fonts/NotoSansSC/NotoSansSC-Regular.otf");
@@ -276,6 +285,11 @@ p {
 
 * {
   font-family: MuseoSans, "Noto Sans SC", sans-serif;
+}
+
+.font-greenline,
+.font-greenline * {
+  font-family: "Russo One", MuseoSans, sans-serif;
 }
 
 *:focus {

@@ -3,15 +3,15 @@ import SettingsMenu from "../SettingsMenu"
 import VersionInfo from "../VersionInfo"
 import PageSelector, { PageSelectorProps } from "../PageSelector"
 import BackIcon from "../../../images/icons/back.svg"
-import { AppViews, useAppViewsStore } from "../../../modules/AppViews"
+import { HOME_VIEW, useAppViewsStore } from "../../../modules/AppViews"
 import SwitchingPane from "../../views/SwitchingPane"
 
 const Footer = ({ pageSelectorProps }: Props) => {
   const appViewsStore = useAppViewsStore()
-  const isShowingBackButton = appViewsStore.currentView !== AppViews.ROOT
+  const isShowingBackButton = appViewsStore.currentView !== HOME_VIEW
 
   const handleBackClick = () => {
-    appViewsStore.setView(AppViews.ROOT)
+    appViewsStore.setView(HOME_VIEW)
   }
 
   return (

@@ -209,6 +209,8 @@
     },
     "pages": {
         "diagnostics": "Діагностика",
+        "eDrive": "E-Drive",
+        "greenlineHome": "Greenline 6GK",
         "remoteConsole": "Віддалена консоль",
         "switchingPane": "Панель перемикання",
         "systemOverview": "Огляд системи"

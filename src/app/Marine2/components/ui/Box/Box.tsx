@@ -38,6 +38,7 @@ const Box = ({
   setRef,
   infoText,
   paginationOrientation = "horizontal",
+  headerActions,
   roundLeftCorners = true,
   roundRightCorners = true,
 }: BoxProps) => {
@@ -80,6 +81,7 @@ const Box = ({
           {icon && <span className="mr-1 md:mr-2">{icon}</span>}
           <FadedText text={title} className={activeStyles?.valueSubtitle} />
         </div>
+        {headerActions && <div className="shrink-0 flex items-center pl-2">{headerActions}</div>}
         {linkedView && (
           <div className="-mr-3 w-px-44 h-px-44 p-2 cursor-pointer" onClick={clickHandler}>
             <ArrowRightIcon

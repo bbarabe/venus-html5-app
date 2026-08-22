@@ -209,6 +209,8 @@
     },
     "pages": {
         "diagnostics": "تشخيص",
+        "eDrive": "E-Drive",
+        "greenlineHome": "Greenline 6GK",
         "remoteConsole": "وحدة التحكم عن بُعد",
         "switchingPane": "لوحة التحكم",
         "systemOverview": "نظرة عامة على النظام"

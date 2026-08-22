@@ -209,6 +209,8 @@
     },
     "pages": {
         "diagnostics": "诊断",
+        "eDrive": "E-Drive",
+        "greenlineHome": "Greenline 6GK",
         "remoteConsole": "远程控制台",
         "switchingPane": "切换面板",
         "systemOverview": "系统总览"

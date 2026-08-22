@@ -170,6 +170,8 @@
         "title": "ダッシュボードは空です"
     },
     "pages": {
+        "eDrive": "E-Drive",
+        "greenlineHome": "Greenline 6GK",
         "switchingPane": "切り替えペイン"
     },
     "remoteLogin": {

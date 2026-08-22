@@ -209,6 +209,8 @@
     },
     "pages": {
         "diagnostics": "การวินิจฉัย",
+        "eDrive": "E-Drive",
+        "greenlineHome": "Greenline 6GK",
         "remoteConsole": "คอนโซลระยะไกล",
         "switchingPane": "หน้าต่างสลับ",
         "systemOverview": "ภาพรวมระบบ"

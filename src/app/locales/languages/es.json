@@ -209,6 +209,8 @@
     },
     "pages": {
         "diagnostics": "Diagnósticos",
+        "eDrive": "E-Drive",
+        "greenlineHome": "Greenline 6GK",
         "remoteConsole": "Consola remota",
         "switchingPane": "Panel de conmutación",
         "systemOverview": "Resumen del sistema"

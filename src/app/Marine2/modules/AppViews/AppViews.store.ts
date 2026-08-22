@@ -4,6 +4,8 @@ import { translate } from "react-i18nify"
 
 export enum AppViews {
   ROOT = "root",
+  GREENLINE_HOME = "greenline-home",
+  EDRIVE = "edrive",
   REMOTE_CONSOLE = "remote-console",
   DIAGNOSTICS = "diagnostics",
   BOX_BATTERIES_OVERVIEW = "box/batteries-overview",
@@ -15,6 +17,8 @@ export enum AppViews {
 
 export const AppViewTitleKeys = new Map<AppViews, string>([
   [AppViews.ROOT, "pages.systemOverview"],
+  [AppViews.GREENLINE_HOME, "pages.greenlineHome"],
+  [AppViews.EDRIVE, "pages.eDrive"],
   [AppViews.REMOTE_CONSOLE, "pages.remoteConsole"],
   [AppViews.DIAGNOSTICS, "pages.diagnostics"],
   [AppViews.BOX_BATTERIES_OVERVIEW, "boxes.batteries"],
@@ -24,8 +28,11 @@ export const AppViewTitleKeys = new Map<AppViews, string>([
   [AppViews.BOX_ENVIRONMENT_OVERVIEW, "boxes.environment"],
 ])
 
+/** The landing page. Everything else treats this as "back". */
+export const HOME_VIEW = AppViews.GREENLINE_HOME
+
 export class AppViewsStore {
-  currentView: AppViews = AppViews.ROOT
+  currentView: AppViews = HOME_VIEW
 
   constructor() {
     makeAutoObservable(this)

@@ -24,21 +24,42 @@ import { batteriesForOverview } from "../../../utils/helpers/devices/batteries/b
 interface Props {
   componentMode?: ComponentMode
   pageSelectorPropsSetter?: (arg0: PageSelectorProps) => void
+  /** Service ids to leave out, for callers that show a bank elsewhere. */
+  excludeIds?: string[]
+  /**
+   * Show batteries that report no charge state as well. The overview
+   * normally drops them, which on a boat whose 12 V senders are
+   * voltage-only would hide most of the fleet.
+   */
+  includeStateless?: boolean
 }
 
-const BatteriesOverview = ({ componentMode = "full", pageSelectorPropsSetter }: Props) => {
+const BatteriesOverview = ({
+  componentMode = "full",
+  pageSelectorPropsSetter,
+  excludeIds,
+  includeStateless,
+}: Props) => {
   const { electricalPowerIndicator } = useAppStore()
   const { batteries } = useSystemBatteries()
   const [boxSize, setBoxSize] = useState<ISize>({ width: 0, height: 0 })
 
   const { temperatureUnitToHumanReadable } = useAppStore()
 
-  const hasValidData = !!(batteries && batteries.length)
+  const shownBatteries = useMemo(
+    () => (excludeIds?.length ? (batteries ?? []).filter((b) => !excludeIds.includes(b.id)) : (batteries ?? [])),
+    [batteries, excludeIds],
+  )
+
+  const hasValidData = !!shownBatteries.length
 
   useVisibilityNotifier({ widgetName: BOX_TYPES.BATTERIES, isVisible: hasValidData })
 
-  const sortedBatteries = useMemo(() => sortBatteries(batteries ?? []), [batteries])
-  const overviewBatteries = useMemo(() => batteriesForOverview(sortedBatteries), [sortedBatteries])
+  const sortedBatteries = useMemo(() => sortBatteries(shownBatteries), [shownBatteries])
+  const overviewBatteries = useMemo(
+    () => (includeStateless ? sortedBatteries : batteriesForOverview(sortedBatteries)),
+    [sortedBatteries, includeStateless],
+  )
 
   const activeStyles = applyStyles(boxSize, defaultBoxStyles)
 
