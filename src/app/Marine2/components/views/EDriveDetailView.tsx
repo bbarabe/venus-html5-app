@@ -11,6 +11,7 @@ import { driveToneFor, ENGINE_MODE_LABEL, engineModeFor, gearLabelFor, kw } from
 import { GREENLINE_COLORS } from "../greenline/greenline-art"
 import {
   chargeStateLabel,
+  consumedAh,
   EDriveState,
   formatDuration,
   GAUGE_MAX,
@@ -216,8 +217,15 @@ const EDriveDetailView = () => {
                 />
                 <GreenlineRow label="Charge target" value={bms.targetChargeVoltage} unit="V" decimals={2} />
                 <GreenlineRow label="Pack temperature" value={bms.temperature} unit="°C" decimals={1} />
-                <GreenlineRow label="Consumed" value={bms.consumedAmphours} unit="Ah" decimals={1} />
-                <GreenlineRow label="Capacity" value={bms.capacity} unit="Ah" decimals={0} />
+                <GreenlineRow label="Consumed" value={consumedAh(bms.consumedAmphours)} unit="Ah" decimals={1} />
+                {/* /Capacity is what is LEFT, not the pack size — the two rows
+                    below sum to /InstalledCapacity. Labelling it "Capacity"
+                    read as the pack being 860 Ah when it is 1440. */}
+                <GreenlineRow
+                  label="Remaining"
+                  value={`${formatValue(bms.capacity, 0)} of ${formatValue(bms.installedCapacity, 0)}`}
+                  unit="Ah"
+                />
                 <GreenlineRow
                   label="Solar lead"
                   value={typeof bms.solarLead === "number" ? bms.solarLead : undefined}

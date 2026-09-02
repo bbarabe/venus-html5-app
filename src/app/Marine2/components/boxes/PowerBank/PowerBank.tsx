@@ -13,6 +13,7 @@ import { AppViews } from "../../../modules/AppViews"
 import {
   cellSpreadMv,
   chargeStateLabel,
+  consumedOfCapacity,
   DRIVE_BANK_BATTERY_IDS,
   GREENLINE_INSTANCES,
   recBmsAlarmLevel,
@@ -135,7 +136,7 @@ const PowerBank = () => {
             <Fact label="Charge limit" value={`${formatValue(bms.maxChargeCurrent, 0)} A`} />
             <Fact
               label="Consumed"
-              value={`${formatValue(bms.consumedAmphours, 0)} of ${formatValue(bms.capacity, 0)} Ah`}
+              value={consumedOfCapacity(bms.consumedAmphours, bms.installedCapacity, formatValue)}
             />
           </div>
           {(leadFault || !!bms.boostActive || !!bms.boostWindowOpen) && (
