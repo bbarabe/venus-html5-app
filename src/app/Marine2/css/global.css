@@ -299,3 +299,52 @@ p {
 .modal {
   background-color: rgba(0 0 0 / 0.7);
 }
+
+/* Greenline: scale the page with the viewport.
+
+   Victron picks the root font from breakpoints: 20px for anything 900-1439px
+   tall, which is what the 16" MFD gets at 1920x1080. When the MFD opens a
+   side pane the webview loses a quarter to a third of its width but none of
+   its height, so that rule still matches and the type stays full size inside
+   panels that have shrunk — the E-Drive readouts collide.
+
+   Below the full screen the root font follows the limiting dimension instead,
+   so every rem-based size (type, gaps, the 44px tap tokens) shrinks together
+   and the layout keeps its shape. Both expressions evaluate to exactly 20px at
+   1920x1080, so the full screen renders as before; larger screens keep
+   Victron's own rules. Media queries and vw/vh units rather than JS: the MFD
+   webview does not have to fire a resize event for this to relayout. */
+@media screen and (max-width: 1919px) and (max-aspect-ratio: 16/9),
+  screen and (max-height: 1079px) and (min-aspect-ratio: 16/9) {
+  :root {
+    /* Victron's px tokens at --uix 1.25 (their 1920x1080 value), in rem so
+       they follow the root font: N * 1.25px / 20px = N/16 rem. */
+    --px2: 0.125rem;
+    --px4: 0.25rem;
+    --px8: 0.5rem;
+    --px16: 1rem;
+    --px20: 1.25rem;
+    --px24: 1.5rem;
+    --px32: 2rem;
+    --px36: 2.25rem;
+    --px44: 2.75rem;
+  }
+}
+/* Width is the limiting dimension: 20px / 1920px. */
+@media screen and (max-width: 1919px) and (max-aspect-ratio: 16/9) {
+  html {
+    font-size: 1.0417vw;
+  }
+}
+/* Height is the limiting dimension: 20px / 1080px. */
+@media screen and (max-height: 1079px) and (min-aspect-ratio: 16/9) {
+  html {
+    font-size: 1.8519vh;
+  }
+}
+/* Floor at 12px: below this the page is a dev window, not a helm. */
+@media screen and (max-width: 1151px), screen and (max-height: 647px) {
+  html {
+    font-size: 12px;
+  }
+}

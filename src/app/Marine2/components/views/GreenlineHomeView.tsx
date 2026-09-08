@@ -17,10 +17,17 @@ import QuickSwitches from "../boxes/QuickSwitches"
  *
  * Nothing on this page pages or scrolls — a helm display should never hide a
  * number behind a gesture.
+ *
+ * The 2x2 grid is unconditional. It used to fall back to one column below
+ * Tailwind's `lg` (1400px), which is exactly what happens when the MFD opens
+ * an autopilot pane beside the webview: the two extra rows then sized to
+ * their content and the fractional rows holding E-Drive and Energy collapsed
+ * to nothing. The page scales as a unit instead — see the viewport rules at
+ * the end of global.css.
  */
 const GreenlineHomeView = () => (
   <MainLayout>
-    <div className="w-full h-full min-h-0 grid gap-2 p-1 grid-cols-1 lg:grid-cols-[minmax(0,7fr)_minmax(0,13fr)] grid-rows-[minmax(0,1fr)_minmax(0,1.1fr)]">
+    <div className="w-full h-full min-h-0 grid gap-2 p-1 grid-cols-[minmax(0,7fr)_minmax(0,13fr)] grid-rows-[minmax(0,1fr)_minmax(0,1.1fr)]">
       <EDriveSummary />
       <EnergyFlow />
       {/* The pinned readings give up the bottom of their column to the
