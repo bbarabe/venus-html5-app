@@ -2,7 +2,7 @@ import "react-app-polyfill/stable"
 import React from "react"
 import { createRoot } from "react-dom/client"
 import { getParameterByName } from "./app/utils/util"
-import registerServiceWorker from "./serviceWorkerRegistration"
+import { unregisterServiceWorkers } from "./app/Marine2/utils/reload-app"
 import * as Sentry from "@sentry/react"
 import { Integrations } from "@sentry/tracing"
 import { initializeErrorHandlerStore } from "app/components/ErrorHandlerModule/ErrorHandler.store"
@@ -78,4 +78,5 @@ const root = createRoot(container!)
 
 root.render(<React.StrictMode>{getApp()}</React.StrictMode>)
 
-registerServiceWorker()
+// Greenline: no service worker on the MFD, it kept serving stale builds until a reboot.
+unregisterServiceWorkers()

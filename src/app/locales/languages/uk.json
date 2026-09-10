@@ -132,6 +132,8 @@
             "prefersHighContrast": "Висока контрастність",
             "prefersLightMode": "Світлий режим",
             "prefersLowContrast": "Низька контрастність",
+            "reloadApp": "Reload app",
+            "reloadAppButton": "Reload (drop cache)",
             "showDiagConsole": "Показати діагностичну консоль",
             "unspecified": "Не вказано",
             "userAgent": "User agent",
@@ -141,7 +143,19 @@
             "webgl": "WebGL",
             "webglNotSupported": "Не підтримується"
         },
-        "diagnostics": "Діагностика"
+        "diagnostics": "Діагностика",
+        "video": {
+            "canvasBenchmark": "JS decode benchmark",
+            "cameraTest": "Camera test page",
+            "mediaSource": "Media Source (MSE)",
+            "openCameraTest": "Open (port 8095)",
+            "video": "Video (camera feasibility)",
+            "videoElement": "Video element",
+            "webAssembly": "WebAssembly",
+            "webCodecs": "WebCodecs",
+            "websocket": "WebSocket",
+            "workers": "Workers"
+        }
     },
     "error": {
         "errorWithMessage": "Помилка: %{message}",

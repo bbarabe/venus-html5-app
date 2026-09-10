@@ -132,6 +132,8 @@
             "prefersHighContrast": "高对比度",
             "prefersLightMode": "浅色模式",
             "prefersLowContrast": "低对比度",
+            "reloadApp": "Reload app",
+            "reloadAppButton": "Reload (drop cache)",
             "showDiagConsole": "显示诊断控制台",
             "unspecified": "未指定",
             "userAgent": "用户代理",
@@ -141,7 +143,19 @@
             "webgl": "WebGL",
             "webglNotSupported": "不支持"
         },
-        "diagnostics": "诊断"
+        "diagnostics": "诊断",
+        "video": {
+            "canvasBenchmark": "JS decode benchmark",
+            "cameraTest": "Camera test page",
+            "mediaSource": "Media Source (MSE)",
+            "openCameraTest": "Open (port 8095)",
+            "video": "Video (camera feasibility)",
+            "videoElement": "Video element",
+            "webAssembly": "WebAssembly",
+            "webCodecs": "WebCodecs",
+            "websocket": "WebSocket",
+            "workers": "Workers"
+        }
     },
     "error": {
         "errorWithMessage": "错误: %{message}",

@@ -6,6 +6,7 @@ import EnergyFlow from "../boxes/EnergyFlow"
 import PowerBank from "../boxes/PowerBank"
 import HelmValues from "../boxes/HelmValues"
 import QuickSwitches from "../boxes/QuickSwitches"
+import CamerasButton from "../ui/CamerasButton"
 
 /**
  * Home for this boat.
@@ -26,7 +27,7 @@ import QuickSwitches from "../boxes/QuickSwitches"
  * the end of global.css.
  */
 const GreenlineHomeView = () => (
-  <MainLayout>
+  <MainLayout headerRight={<CamerasButton />}>
     <div className="w-full h-full min-h-0 grid gap-2 p-1 grid-cols-[minmax(0,7fr)_minmax(0,13fr)] grid-rows-[minmax(0,1fr)_minmax(0,1.1fr)]">
       <EDriveSummary />
       <EnergyFlow />

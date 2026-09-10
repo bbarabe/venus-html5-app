@@ -5,7 +5,7 @@ import { observer } from "mobx-react-lite"
 import { useAppViewsStore } from "../../../modules/AppViews"
 import { PageSelectorProps } from "../PageSelector"
 
-const MainLayout = ({ children, title, pageSelectorProps }: Props) => {
+const MainLayout = ({ children, title, pageSelectorProps, headerRight }: Props) => {
   const appViewsStore = useAppViewsStore()
 
   const getTitle = useMemo(() => {
@@ -15,7 +15,7 @@ const MainLayout = ({ children, title, pageSelectorProps }: Props) => {
   return (
     <div className={"text-content-primary bg-surface-primary flex flex-col w-full h-full pt-2 px-2"}>
       <div className={"flex flex-row w-full h-full grow-0 basis-0 min-h-fit"}>
-        <Header title={getTitle} />
+        <Header title={getTitle} right={headerRight} />
       </div>
       <div className={"flex flex-col grow w-full h-full min-h-0 cy-metrics"}>{children}</div>
       <div className={"flex flex-row w-full h-full grow-0 basis-0 min-h-fit"}>
@@ -29,6 +29,7 @@ interface Props {
   children?: React.JSX.Element
   title?: string
   pageSelectorProps?: PageSelectorProps
+  headerRight?: React.ReactNode
 }
 
 export default observer(MainLayout)

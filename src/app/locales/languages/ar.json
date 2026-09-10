@@ -132,6 +132,8 @@
             "prefersHighContrast": "تباين عالٍ",
             "prefersLightMode": "الوضع الفاتح",
             "prefersLowContrast": "تباين منخفض",
+            "reloadApp": "Reload app",
+            "reloadAppButton": "Reload (drop cache)",
             "showDiagConsole": "إظهار وحدة تحكم التشخيص",
             "unspecified": "غير محدد",
             "userAgent": "وكيل المستخدم",
@@ -141,7 +143,19 @@
             "webgl": "WebGL",
             "webglNotSupported": "غير مدعوم"
         },
-        "diagnostics": "تشخيص"
+        "diagnostics": "تشخيص",
+        "video": {
+            "canvasBenchmark": "JS decode benchmark",
+            "cameraTest": "Camera test page",
+            "mediaSource": "Media Source (MSE)",
+            "openCameraTest": "Open (port 8095)",
+            "video": "Video (camera feasibility)",
+            "videoElement": "Video element",
+            "webAssembly": "WebAssembly",
+            "webCodecs": "WebCodecs",
+            "websocket": "WebSocket",
+            "workers": "Workers"
+        }
     },
     "error": {
         "errorWithMessage": "خطأ: %{message}",

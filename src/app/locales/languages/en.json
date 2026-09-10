@@ -132,6 +132,14 @@
             "prefersHighContrast": "High Contrast",
             "prefersLightMode": "Light Mode",
             "prefersLowContrast": "Low Contrast",
+            "prefs": "Preferences",
+            "prefsCerbo": "GX, loaded from",
+            "prefsLoading": "Loading from GX…",
+            "prefsLocal": "This browser only, GX not answering",
+            "prefsSaveFailed": "save FAILED",
+            "prefsSaved": "saved",
+            "reloadApp": "Reload app",
+            "reloadAppButton": "Reload (drop cache)",
             "showDiagConsole": "Show Diagnostic Console",
             "unspecified": "Unspecified",
             "userAgent": "User agent",
@@ -141,7 +149,19 @@
             "webgl": "WebGL",
             "webglNotSupported": "Not Supported"
         },
-        "diagnostics": "Diagnostics"
+        "diagnostics": "Diagnostics",
+        "video": {
+            "canvasBenchmark": "JS decode benchmark",
+            "cameraTest": "Camera test page",
+            "mediaSource": "Media Source (MSE)",
+            "openCameraTest": "Open (port 8095)",
+            "video": "Video (camera feasibility)",
+            "videoElement": "Video element",
+            "webAssembly": "WebAssembly",
+            "webCodecs": "WebCodecs",
+            "websocket": "WebSocket",
+            "workers": "Workers"
+        }
     },
     "error": {
         "errorWithMessage": "Error: %{message}",

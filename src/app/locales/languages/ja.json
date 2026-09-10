@@ -101,11 +101,25 @@
             "prefersHighContrast": "高コントラスト",
             "prefersLightMode": "ライトモード",
             "prefersLowContrast": "低コントラスト",
+            "reloadApp": "Reload app",
+            "reloadAppButton": "Reload (drop cache)",
             "showDiagConsole": "診断コンソールを表示",
             "unspecified": "未指定",
             "viewport": "ビューポート",
             "webgl": "WebGL",
             "webglNotSupported": "非対応"
+        },
+        "video": {
+            "canvasBenchmark": "JS decode benchmark",
+            "cameraTest": "Camera test page",
+            "mediaSource": "Media Source (MSE)",
+            "openCameraTest": "Open (port 8095)",
+            "video": "Video (camera feasibility)",
+            "videoElement": "Video element",
+            "webAssembly": "WebAssembly",
+            "webCodecs": "WebCodecs",
+            "websocket": "WebSocket",
+            "workers": "Workers"
         }
     },
     "error": {

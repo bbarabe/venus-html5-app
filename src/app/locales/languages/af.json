@@ -132,6 +132,8 @@
             "prefersHighContrast": "Hoë Kontras",
             "prefersLightMode": "Ligte Modus",
             "prefersLowContrast": "Lae Kontras",
+            "reloadApp": "Reload app",
+            "reloadAppButton": "Reload (drop cache)",
             "showDiagConsole": "Wys Diagnostiese Konsole",
             "unspecified": "Ongespesifiseerd",
             "userAgent": "Gebruikersagent",
@@ -141,7 +143,19 @@
             "webgl": "WebGL",
             "webglNotSupported": "Nie ondersteun nie"
         },
-        "diagnostics": "Diagnostiek"
+        "diagnostics": "Diagnostiek",
+        "video": {
+            "canvasBenchmark": "JS decode benchmark",
+            "cameraTest": "Camera test page",
+            "mediaSource": "Media Source (MSE)",
+            "openCameraTest": "Open (port 8095)",
+            "video": "Video (camera feasibility)",
+            "videoElement": "Video element",
+            "webAssembly": "WebAssembly",
+            "webCodecs": "WebCodecs",
+            "websocket": "WebSocket",
+            "workers": "Workers"
+        }
     },
     "error": {
         "errorWithMessage": "Fout: %{message}",

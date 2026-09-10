@@ -132,6 +132,8 @@
             "prefersHighContrast": "Alto contrasto",
             "prefersLightMode": "Modalità chiara",
             "prefersLowContrast": "Basso contrasto",
+            "reloadApp": "Reload app",
+            "reloadAppButton": "Reload (drop cache)",
             "showDiagConsole": "Mostra console diagnostica",
             "unspecified": "Non specificato",
             "userAgent": "Agente utente",
@@ -141,7 +143,19 @@
             "webgl": "WebGL",
             "webglNotSupported": "Non supportato"
         },
-        "diagnostics": "Diagnostica"
+        "diagnostics": "Diagnostica",
+        "video": {
+            "canvasBenchmark": "JS decode benchmark",
+            "cameraTest": "Camera test page",
+            "mediaSource": "Media Source (MSE)",
+            "openCameraTest": "Open (port 8095)",
+            "video": "Video (camera feasibility)",
+            "videoElement": "Video element",
+            "webAssembly": "WebAssembly",
+            "webCodecs": "WebCodecs",
+            "websocket": "WebSocket",
+            "workers": "Workers"
+        }
     },
     "error": {
         "errorWithMessage": "Errore: %{message}",

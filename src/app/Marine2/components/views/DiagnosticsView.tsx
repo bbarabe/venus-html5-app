@@ -7,12 +7,16 @@ import { observer } from "mobx-react-lite"
 import { useWindowSize } from "../../utils/hooks/use-window-size"
 import Paginator from "../ui/Paginator"
 import { useBrowserFeatures, WebGLDiagnostics } from "../../utils/hooks/use-browser-features"
+import { useVideoFeatures, VideoFeatures } from "../../utils/hooks/use-video-features"
 import Button from "../ui/Button"
+import { reloadApp } from "../../utils/reload-app"
+import { prefsStatus, relayBase } from "../../modules/Greenline/prefs.client"
 
 const DiagnosticsView = () => {
   const mqtt = useMqtt()
   const windowSize = useWindowSize()
   const browserFeatures = useBrowserFeatures()
+  const videoFeatures = useVideoFeatures()
   // Re-render to sync button label when diagConsole visibility changes (including [Close])
   const [, forceUpdate] = useState(0)
   useEffect(() => {
@@ -28,6 +32,13 @@ const DiagnosticsView = () => {
     }
   }
 
+  // The camera relay (Boat NMEA/camera-relay) serves its test page on port 8095 of
+  // the same host; the MFD cannot type a URL, so this is the way in. Same-page
+  // navigation on purpose: the test page links back to /app/.
+  const openCameraTest = () => {
+    window.location.href = `${window.location.protocol}//${window.location.hostname}:8095/`
+  }
+
   const connectionDiagnostics = (
     <DiagnosticsTable
       title={translate("diagnostics.connection.connection")}
@@ -40,6 +51,18 @@ const DiagnosticsView = () => {
       title={translate("diagnostics.device.device")}
       diagnostics={[
         ...getDeviceDiagnostics(windowSize, browserFeatures),
+        {
+          property: translate("diagnostics.device.prefs"),
+          value: formatPrefsStatus(),
+        },
+        {
+          property: translate("diagnostics.device.reloadApp"),
+          value: (
+            <Button onClick={() => void reloadApp()} size="md">
+              {translate("diagnostics.device.reloadAppButton")}
+            </Button>
+          ),
+        },
         {
           property: translate("diagnostics.device.diagConsole"),
           value: (
@@ -54,12 +77,30 @@ const DiagnosticsView = () => {
     />
   )
 
+  const videoDiagnostics = (
+    <DiagnosticsTable
+      title={translate("diagnostics.video.video")}
+      diagnostics={[
+        ...getVideoDiagnostics(videoFeatures),
+        {
+          property: translate("diagnostics.video.cameraTest"),
+          value: (
+            <Button onClick={openCameraTest} size="md">
+              {translate("diagnostics.video.openCameraTest")}
+            </Button>
+          ),
+        },
+      ]}
+    />
+  )
+
   return (
     <MainLayout title={translate("diagnostics.diagnostics")}>
       <div className={"h-full w-full overflow-hidden"}>
         <Paginator orientation={"vertical"}>
           <div className={"container mx-auto max-w-screen-md mb-4"}>{connectionDiagnostics}</div>
-          <div className={"container mx-auto max-w-screen-md"}>{deviceDiagnostics}</div>
+          <div className={"container mx-auto max-w-screen-md mb-4"}>{deviceDiagnostics}</div>
+          <div className={"container mx-auto max-w-screen-md"}>{videoDiagnostics}</div>
         </Paginator>
       </div>
     </MainLayout>
@@ -154,6 +195,38 @@ const getDeviceDiagnostics = (
       property: translate("diagnostics.device.webgl"),
       value: formatWebGLDiagnostics(browserFeatures.webglDiagnostics),
     },
+  ]
+}
+
+// Where the pins and the theme came from (the GX via the camera relay, or this
+// browser alone), and whether the last write landed. Read this aboard after a
+// reboot: "GX" with a time means roaming works.
+const formatPrefsStatus = () => {
+  const at = (d?: Date) => (d ? d.toLocaleTimeString() : "")
+  const source =
+    prefsStatus.source === "cerbo"
+      ? `${translate("diagnostics.device.prefsCerbo")} ${relayBase()} ${at(prefsStatus.loadedAt)}`
+      : prefsStatus.source === "unavailable"
+        ? `${translate("diagnostics.device.prefsLocal")} (${relayBase()})`
+        : translate("diagnostics.device.prefsLoading")
+  const saved =
+    prefsStatus.lastSaveOk === undefined
+      ? ""
+      : `, ${translate(prefsStatus.lastSaveOk ? "diagnostics.device.prefsSaved" : "diagnostics.device.prefsSaveFailed")} ${at(prefsStatus.lastSaveAt)}`
+  return source + saved
+}
+
+// What the browser could do with a live camera stream; see use-video-features.tsx.
+const getVideoDiagnostics = (video: VideoFeatures) => {
+  if (!video.isInitialized) return [{ property: translate("diagnostics.video.webCodecs"), value: "..." }]
+  return [
+    { property: translate("diagnostics.video.webCodecs"), value: video.webCodecs },
+    { property: translate("diagnostics.video.mediaSource"), value: video.mediaSource },
+    { property: translate("diagnostics.video.videoElement"), value: video.videoElement },
+    { property: translate("diagnostics.video.webAssembly"), value: video.webAssembly },
+    { property: translate("diagnostics.video.workers"), value: video.workers },
+    { property: translate("diagnostics.video.websocket"), value: video.websocket },
+    { property: translate("diagnostics.video.canvasBenchmark"), value: video.canvasBenchmark },
   ]
 }
 

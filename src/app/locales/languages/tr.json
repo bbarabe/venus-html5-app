@@ -132,6 +132,8 @@
             "prefersHighContrast": "Yüksek Kontrast",
             "prefersLightMode": "Açık Mod",
             "prefersLowContrast": "Düşük Kontrast",
+            "reloadApp": "Reload app",
+            "reloadAppButton": "Reload (drop cache)",
             "showDiagConsole": "Tanılama Konsolunu Göster",
             "unspecified": "Belirtilmemiş",
             "userAgent": "User agent",
@@ -141,7 +143,19 @@
             "webgl": "WebGL",
             "webglNotSupported": "Desteklenmiyor"
         },
-        "diagnostics": "Diagnostics"
+        "diagnostics": "Diagnostics",
+        "video": {
+            "canvasBenchmark": "JS decode benchmark",
+            "cameraTest": "Camera test page",
+            "mediaSource": "Media Source (MSE)",
+            "openCameraTest": "Open (port 8095)",
+            "video": "Video (camera feasibility)",
+            "videoElement": "Video element",
+            "webAssembly": "WebAssembly",
+            "webCodecs": "WebCodecs",
+            "websocket": "WebSocket",
+            "workers": "Workers"
+        }
     },
     "error": {
         "errorWithMessage": "Error: %{message}",

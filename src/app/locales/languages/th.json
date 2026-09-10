@@ -132,6 +132,8 @@
             "prefersHighContrast": "คอนทราสต์สูง",
             "prefersLightMode": "โหมดสว่าง",
             "prefersLowContrast": "คอนทราสต์ต่ำ",
+            "reloadApp": "Reload app",
+            "reloadAppButton": "Reload (drop cache)",
             "showDiagConsole": "แสดงคอนโซลการวินิจฉัย",
             "unspecified": "ไม่ได้ระบุ",
             "userAgent": "User agent",
@@ -141,7 +143,19 @@
             "webgl": "WebGL",
             "webglNotSupported": "ไม่รองรับ"
         },
-        "diagnostics": "การวินิจฉัย"
+        "diagnostics": "การวินิจฉัย",
+        "video": {
+            "canvasBenchmark": "JS decode benchmark",
+            "cameraTest": "Camera test page",
+            "mediaSource": "Media Source (MSE)",
+            "openCameraTest": "Open (port 8095)",
+            "video": "Video (camera feasibility)",
+            "videoElement": "Video element",
+            "webAssembly": "WebAssembly",
+            "webCodecs": "WebCodecs",
+            "websocket": "WebSocket",
+            "workers": "Workers"
+        }
     },
     "error": {
         "errorWithMessage": "ข้อผิดพลาด: %{message}",
