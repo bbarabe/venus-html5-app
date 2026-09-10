@@ -342,6 +342,15 @@ p {
     font-size: 1.8519vh;
   }
 }
+/* Android Chrome inflates the text of wide blocks on its own ("text autosizing",
+   and the system font-size setting rides the same mechanism), which blew up the
+   Energy panel's type on a tablet while the narrower panels kept theirs. The
+   root font already scales with the viewport, so the browser must not add
+   its own. */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
 /* Floor at 12px: below this the page is a dev window, not a helm. */
 @media screen and (max-width: 1151px), screen and (max-height: 647px) {
   html {

@@ -19,7 +19,7 @@ const StatusPill = (props: StatusPillProps) => {
   return (
     <span
       className={classnames(
-        "px-2 py-0.5 text-2xs leading-none rounded-md inline-flex items-center",
+        "px-2 py-0.5 text-2xs leading-none rounded-md inline-flex items-center whitespace-nowrap",
         variantClasses[props.variant],
       )}
     >
