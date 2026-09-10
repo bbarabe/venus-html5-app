@@ -342,6 +342,24 @@ p {
     font-size: 1.8519vh;
   }
 }
+/* Mobile browsers define vh as the height with the toolbar hidden, while the
+   page itself (html height 100%) only gets what is left below the toolbar. On a
+   tablet that is an 8-13% mismatch: type sized by vh is too big for boxes sized
+   by the visible height, and the widest panel is where it shows. svh is the
+   visible height; Chromium 69 (the Simrad) does not know it and keeps vh. */
+@supports (font-size: 1svh) {
+  @media screen and (max-height: 1079px) and (min-aspect-ratio: 16/9) {
+    html {
+      font-size: 1.8519svh;
+    }
+  }
+  .safe-h-screen {
+    height: 100svh;
+  }
+  .min-safe-h-screen {
+    min-height: 100svh;
+  }
+}
 /* Android Chrome inflates the text of wide blocks on its own ("text autosizing",
    and the system font-size setting rides the same mechanism), which blew up the
    Energy panel's type on a tablet while the narrower panels kept theirs. The
