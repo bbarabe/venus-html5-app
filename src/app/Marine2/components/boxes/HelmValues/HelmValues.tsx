@@ -42,9 +42,9 @@ const HelmValueSlot = ({ valueRef, showMeasurement }: { valueRef: HelmValueRef; 
  * Both sources are enumerated from the bus — every tank on `tank/+` and every
  * sensor on `temperature/+` — so what this panel can offer is decided by what
  * the GX is publishing, never by anything written down here. The choice
- * itself lives in this browser's localStorage, like the quick switches: it is
- * a per-display preference, and writing it to the device's settings would
- * push one helm's choice onto every other screen on the boat.
+ * itself roams: it is kept on the GX by the camera relay, like the quick
+ * switches and the theme, so every display shows the same picks and an MFD
+ * reboot does not lose them.
  *
  * Slots are bound to device instances rather than to the enumeration, so a
  * sender that stops talking leaves an em-dash where its reading was and the

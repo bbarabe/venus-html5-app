@@ -1,5 +1,6 @@
 import { makeAutoObservable } from "mobx"
 import { useMemo } from "react"
+import { savePrefs } from "../Greenline/prefs.client"
 
 /**
  * The panel is two columns — tank levels on the left, sensor readings on the
@@ -67,14 +68,24 @@ const isHelmValueRef = (value: unknown): value is HelmValueRef => {
   return false
 }
 
+/** Whatever came off the wire, reduced to the refs the panel can draw. */
+const parseSelection = (value: unknown): HelmValueRef[] | undefined => {
+  if (!Array.isArray(value)) return undefined
+  return capPerKind(
+    value.filter(isHelmValueRef).map((ref) => ({ ...ref, instance: Number(ref.instance) }) as HelmValueRef),
+  )
+}
+
 /**
  * Which readings the helm has pinned to Home.
  *
- * Kept in localStorage rather than on the GX, for the same reason the quick
- * switches are: this is a per-display preference, and writing it to the
- * device's settings would push one helm's choice onto every other screen on
- * the boat. Storage can fail or come back empty (a private window, cleared
- * site data), so every access is guarded and nothing depends on it working.
+ * The choice roams: it lives in the preferences document on the GX (see
+ * `Greenline/prefs.client.ts`), so every display on the boat shows the same
+ * picks and a reboot of the MFD, whose webview forgets its web storage,
+ * costs nothing. localStorage keeps a copy so the page paints its last state
+ * before the GX answers, and stands in when the relay is down. Storage can
+ * fail or come back empty, so every access is guarded and nothing depends on
+ * it working.
  *
  * `selection` stays undefined until someone actually chooses, which is what
  * separates "never configured" — fall back to whatever the bus is offering —
@@ -92,24 +103,33 @@ export class HelmValuesStore {
     try {
       const raw = window.localStorage.getItem(STORAGE_KEY)
       if (!raw) return
-      const parsed = JSON.parse(raw)
-      if (Array.isArray(parsed)) {
-        this.selection = capPerKind(
-          parsed.filter(isHelmValueRef).map((ref) => ({ ...ref, instance: Number(ref.instance) }) as HelmValueRef),
-        )
-      }
+      const parsed = parseSelection(JSON.parse(raw))
+      if (parsed) this.selection = parsed
     } catch {
       // No storage, or something else wrote nonsense to the key. Stay unset,
       // which means the panel falls back to the bus default.
     }
   }
 
+  /** What the GX has on file. An empty list is a real choice; garbage is ignored. */
+  hydrate(value: unknown) {
+    const parsed = parseSelection(value)
+    if (!parsed) return
+    this.selection = parsed
+    this.cache()
+  }
+
   setSelection(refs: HelmValueRef[]) {
     this.selection = capPerKind(refs)
+    this.cache()
+    void savePrefs({ helmValues: this.selection })
+  }
+
+  private cache() {
     try {
       window.localStorage.setItem(STORAGE_KEY, JSON.stringify(this.selection))
     } catch {
-      // Preference is lost on reload; the panel still shows it this session.
+      // No local copy; the GX still has it.
     }
   }
 }

@@ -4,6 +4,7 @@ import React, { useEffect, useLayoutEffect } from "react"
 import { withErrorBoundary } from "react-error-boundary"
 import { getLocale, setLocale } from "react-i18nify"
 import { useVisibleWidgetsStore } from "./modules"
+import { useGreenlinePrefs } from "./modules/Greenline/usePrefs"
 import { Marine2 } from "./Marine2"
 import Connecting from "./components/ui/Connecting"
 import { appErrorBoundaryProps } from "./components/ui/Error/appErrorBoundary"
@@ -23,6 +24,9 @@ const App = (props: AppProps) => {
   const locale = getLocale()
   const visibleWidgetsStore = useVisibleWidgetsStore()
   const { themeStore } = useTheme()
+
+  // Greenline: pins and theme roam via the GX, and the helm defaults to dark.
+  useGreenlinePrefs(themeStore)
 
   useVebus()
 
