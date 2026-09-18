@@ -22,7 +22,7 @@ import {
   currentStepIncrementFor,
   isCurrentStepDividable,
 } from "../../../utils/helpers/current-limit-adjuster"
-import { GREENLINE_INSTANCES } from "../../../modules/Greenline"
+import { GREENLINE_INSTANCES, nativeSolarPriorityStatus, useSolarPriorityStatus } from "../../../modules/Greenline"
 
 interface Props {
   onClose: () => void
@@ -50,6 +50,7 @@ const PowerSettingsModal: FC<Props> = ({ onClose }) => {
   const { mode, modeIsAdjustable, updateMode } = useInverterCharger(vebus)
   const { currentLimitIsAdjustable } = useInputLimit(vebus, 1)
   const { currentLimit, currentLimitMax, updateLimit } = useInputLimitSelector(vebus, 1)
+  const solarStatus = useSolarPriorityStatus(vebus, GREENLINE_INSTANCES.solarPrioritySwitch)
   const pane = useSwitchingPane(translate("switches.gxDeviceRelays"))
 
   // Mounted only while open, so both drafts seed from the device each time
@@ -141,6 +142,22 @@ const PowerSettingsModal: FC<Props> = ({ onClose }) => {
 
           <div className="min-w-0">
             <Section title="Charging &amp; solar priority">
+              <dl className="text-sm mb-4 space-y-2">
+                <div>
+                  <dt className="text-content-secondary">Quattro solar &amp; wind priority</dt>
+                  <dd>{nativeSolarPriorityStatus(solarStatus)}</dd>
+                </div>
+                <div>
+                  <dt className="text-content-secondary">Boat Solar Priority controller</dt>
+                  <dd>
+                    {solarStatus.controllerState || "Unavailable"}
+                    {solarStatus.oneWay ? ` · ${solarStatus.oneWay}` : ""}
+                  </dd>
+                  {solarStatus.controllerStatus && (
+                    <dd className="text-content-tertiary">{solarStatus.controllerStatus}</dd>
+                  )}
+                </div>
+              </dl>
               {chargingOutputs.length ? (
                 chargingOutputs.map(renderOutput)
               ) : (
