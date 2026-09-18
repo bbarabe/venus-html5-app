@@ -215,7 +215,10 @@ const EDriveDetailView = () => {
                   value={`${formatValue(bms.minCellVoltage, 3)} / ${formatValue(bms.maxCellVoltage, 3)}`}
                   unit="V"
                 />
-                <GreenlineRow label="Charge target" value={bms.targetChargeVoltage} unit="V" decimals={2} />
+                {/* The two targets side by side: what the shore charger is
+                    told and what the MPPTs are told; the gap is the solar gain. */}
+                <GreenlineRow label="Charger target" value={bms.maxChargeVoltage} unit="V" decimals={2} />
+                <GreenlineRow label="Solar target" value={bms.targetChargeVoltage} unit="V" decimals={2} tone="green" />
                 <GreenlineRow label="Pack temperature" value={bms.temperature} unit="°C" decimals={1} />
                 <GreenlineRow label="Consumed" value={consumedAh(bms.consumedAmphours)} unit="Ah" decimals={1} />
                 {/* /Capacity is what is LEFT, not the pack size — the two rows
@@ -225,13 +228,6 @@ const EDriveDetailView = () => {
                   label="Remaining"
                   value={`${formatValue(bms.capacity, 0)} of ${formatValue(bms.installedCapacity, 0)}`}
                   unit="Ah"
-                />
-                <GreenlineRow
-                  label="Solar lead"
-                  value={typeof bms.solarLead === "number" ? bms.solarLead : undefined}
-                  unit="V"
-                  decimals={2}
-                  tone="green"
                 />
                 <div className="flex flex-wrap gap-2 pt-2">
                   {leadFault && <StatusPill label={`Lead fault: ${bms.leadFault}`} variant="yellow" />}

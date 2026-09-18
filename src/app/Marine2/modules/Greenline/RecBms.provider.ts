@@ -18,9 +18,11 @@ export interface RecBmsState {
   minCellVoltage?: number
   maxCellVoltage?: number
   maxCellTemperature?: number
+  /** What the MPPTs are told (the charger's figure plus the solar gain). */
   targetChargeVoltage?: number
+  /** What the shore charger is told: the BMS's /Info/MaxChargeVoltage. */
   maxChargeVoltage?: number
-  /** Solar Priority: the volts the BMS holds back so the MPPTs lead the charge. */
+  /** The gap between the two, as dbus-recbms reports it. */
   solarLead?: number
   /** Non-empty string whenever the solar lead cannot be applied. */
   leadFault?: string

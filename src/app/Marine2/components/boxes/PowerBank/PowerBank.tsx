@@ -131,8 +131,11 @@ const PowerBank = () => {
               label="Cell temp"
               value={`${formatValue(bms.minCellTemperature, 0)} / ${formatValue(bms.maxCellTemperature, 0)} °C`}
             />
-            <Fact label="Charge target" value={`${formatValue(bms.targetChargeVoltage, 2)} V`} />
-            <Fact label="Solar lead" value={`${formatValue(bms.solarLead, 2)} V`} />
+            {/* Two absolute targets, not a target and an offset: what the
+                shore charger is told and what the MPPTs are told (owner,
+                2026-09-17). The gap between them is the solar gain. */}
+            <Fact label="Charger target" value={`${formatValue(bms.maxChargeVoltage, 2)} V`} />
+            <Fact label="Solar target" value={`${formatValue(bms.targetChargeVoltage, 2)} V`} />
             <Fact label="Charge limit" value={`${formatValue(bms.maxChargeCurrent, 0)} A`} />
             <Fact
               label="Consumed"
