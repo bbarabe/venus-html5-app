@@ -22,10 +22,24 @@ import {
   currentStepIncrementFor,
   isCurrentStepDividable,
 } from "../../../utils/helpers/current-limit-adjuster"
-import { GREENLINE_INSTANCES, nativeSolarPriorityStatus, useSolarPriorityStatus } from "../../../modules/Greenline"
+import classNames from "classnames"
+import {
+  GREENLINE_INSTANCES,
+  StatusTone,
+  describeSolarPriority,
+  useRecBms,
+  useSolarPriorityStatus,
+} from "../../../modules/Greenline"
 
 interface Props {
   onClose: () => void
+}
+
+const TONE_DOT: Record<StatusTone, string> = {
+  gray: "bg-content-victronGray",
+  green: "bg-content-victronGreen",
+  yellow: "bg-content-victronYellow",
+  red: "bg-content-victronRed",
 }
 
 const Section: FC<{ title: string; children: React.ReactNode }> = ({ title, children }) => (
@@ -51,6 +65,8 @@ const PowerSettingsModal: FC<Props> = ({ onClose }) => {
   const { currentLimitIsAdjustable } = useInputLimit(vebus, 1)
   const { currentLimit, currentLimitMax, updateLimit } = useInputLimitSelector(vebus, 1)
   const solarStatus = useSolarPriorityStatus(vebus, GREENLINE_INSTANCES.solarPrioritySwitch)
+  const bank = useRecBms(GREENLINE_INSTANCES.driveBattery)
+  const brief = describeSolarPriority(solarStatus, bank.soc)
   const pane = useSwitchingPane(translate("switches.gxDeviceRelays"))
 
   // Mounted only while open, so both drafts seed from the device each time
@@ -75,9 +91,12 @@ const PowerSettingsModal: FC<Props> = ({ onClose }) => {
         .sort((a, b) => String(a.outputId).localeCompare(String(b.outputId)))
   }, [pane.groups])
 
+  // The on/off toggle first, then the charge target, then the PV capacity
+  const [solarToggle, ...solarRest] = outputsFor(GREENLINE_INSTANCES.solarPrioritySwitch)
   const chargingOutputs = [
+    ...(solarToggle ? [solarToggle] : []),
     ...outputsFor(GREENLINE_INSTANCES.maxChargeSwitch),
-    ...outputsFor(GREENLINE_INSTANCES.solarPrioritySwitch),
+    ...solarRest,
   ]
 
   const dirty = draftMode !== Number(mode) || draftLimit !== Number(currentLimit)
@@ -141,23 +160,7 @@ const PowerSettingsModal: FC<Props> = ({ onClose }) => {
           </div>
 
           <div className="min-w-0">
-            <Section title="Charging &amp; solar priority">
-              <dl className="text-sm mb-4 space-y-2">
-                <div>
-                  <dt className="text-content-secondary">Quattro solar &amp; wind priority</dt>
-                  <dd>{nativeSolarPriorityStatus(solarStatus)}</dd>
-                </div>
-                <div>
-                  <dt className="text-content-secondary">Boat Solar Priority controller</dt>
-                  <dd>
-                    {solarStatus.controllerState || "Unavailable"}
-                    {solarStatus.oneWay ? ` · ${solarStatus.oneWay}` : ""}
-                  </dd>
-                  {solarStatus.controllerStatus && (
-                    <dd className="text-content-tertiary">{solarStatus.controllerStatus}</dd>
-                  )}
-                </div>
-              </dl>
+            <Section title="Solar priority">
               {chargingOutputs.length ? (
                 chargingOutputs.map(renderOutput)
               ) : (
@@ -165,9 +168,33 @@ const PowerSettingsModal: FC<Props> = ({ onClose }) => {
                   The BMS and Solar Priority services are not on the bus.
                 </div>
               )}
+              <div className="text-sm text-content-tertiary mt-2">
+                These take effect as you set them. Mode and the shore limit wait for Apply.
+              </div>
             </Section>
-            <div className="text-sm text-content-tertiary mt-6">
-              These two take effect as you set them. Mode and the shore limit wait for Apply.
+            {/* What the controller is doing, in the same list idiom as the mode
+                options opposite: plain words from its structured paths, never
+                its status line (that one is a log line). */}
+            <div className="mt-6">
+              <Section title="Right now">
+                <div className="divide-y divide-outline-primary text-base">
+                  <div className="flex justify-between items-baseline gap-4 py-3 pt-0">
+                    <span className="shrink-0">Power</span>
+                    <span className="text-right text-content-secondary inline-flex items-center gap-2">
+                      <span
+                        className={classNames("inline-block w-2 h-2 rounded-full", TONE_DOT[brief.headline.tone])}
+                      />
+                      {brief.headline.label}
+                    </span>
+                  </div>
+                  {brief.rows.map((row) => (
+                    <div key={row.label} className="flex justify-between items-baseline gap-4 py-3 last:pb-0">
+                      <span className="shrink-0">{row.label}</span>
+                      <span className="text-right text-content-secondary">{row.value}</span>
+                    </div>
+                  ))}
+                </div>
+              </Section>
             </div>
           </div>
         </div>
